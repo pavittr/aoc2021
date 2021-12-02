@@ -4,7 +4,6 @@ import (
 	"fmt"
 	"strconv"
 	"strings"
-
 	"github.com/pavittr/aoc2021/utils"
 )
 
@@ -53,3 +52,4 @@ func solution2(puzzleInput string) (string, error) {
 	return fmt.Sprintf("%d", zPos * xPos), nil
 
 }
+

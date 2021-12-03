@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+
 	"github.com/pavittr/aoc2021/utils"
 	"strconv"
 	"strings"
@@ -46,9 +47,41 @@ func solution1(puzzleInput string) (string, error) {
 		return "", fmt.Errorf("failed to parse epsilon (%s) as binary", string(epsilon))
 	}
 
-	return fmt.Sprintf("%d", gammaInt * epsilonInt), nil
+	return fmt.Sprintf("%d", gammaInt*epsilonInt), nil
 }
 
 func solution2(puzzleInput string) (string, error) {
-	return "", nil
+	lines := strings.Split(strings.TrimSpace(puzzleInput), "\n")
+	oxyInt, _ := findInt(0, '0', lines)
+	scrubInt, _ := findInt(0, '1', lines)
+	return fmt.Sprintf("%d", oxyInt*scrubInt), nil
+}
+
+func findInt(element int, priority rune, lines []string) (int64, error) {
+	tmpLines := make([]string, 0)
+	var zeroes, ones int
+	for _, line := range lines {
+		if line[element] == '1' {
+			ones++
+		} else {
+			zeroes++
+		}
+
+	}
+
+	for _, line := range lines {
+		if (zeroes > ones && line[element] == byte(priority)) ||
+			(zeroes <= ones && line[element] != byte(priority)) {
+			tmpLines = append(tmpLines, line)
+		}
+	}
+
+	if len(tmpLines) == 1 {
+		retInt, rErr := strconv.ParseInt(tmpLines[0], 2, 64)
+		if rErr != nil {
+			return 0, fmt.Errorf("failed to parse last element (%s) as binary on element %d: %+v", tmpLines[0], element, rErr)
+		}
+		return retInt, nil
+	}
+	return findInt(element+1, priority, tmpLines)
 }

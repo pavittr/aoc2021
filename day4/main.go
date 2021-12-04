@@ -1,7 +1,6 @@
 package main
 
 import (
-	"bytes"
 	"fmt"
 
 	"log"
@@ -171,7 +170,6 @@ func solution2(puzzleInput string) (string, error) {
 		for _, board := range boards {
 
 			board.call(ball)
-			log.Printf("Calling %d on board %d, line %t\n", ball, board.Id, board.line())
 
 			if board.line() {
 				if _, found := completeBoardMap[board.Id]; !found {

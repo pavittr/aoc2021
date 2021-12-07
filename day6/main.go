@@ -38,7 +38,7 @@ func solution1(puzzleInput string) (string, error) {
 		shoal = append(shoal, Fish(r))
 	}
 	nextShoal := make([]Fish,0)
-	for i:= 0 ;i< 256 ; i++ {
+	for i:= 0 ;i< 80 ; i++ {
 		for _, fish := range shoal {
 			nextShoal = append(nextShoal, fish.proceed()...)
 		}
